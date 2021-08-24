@@ -1,8 +1,6 @@
 package io.github.kjwenger;
 
-import org.junit.jupiter.api.Assertions;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestJUnit5 {
 

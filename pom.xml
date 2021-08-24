@@ -19,12 +19,17 @@
             </roles>
         </developer>
     </developers>
+    <properties>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+    </properties>
     <profiles>
         <profile>
             <id>JUnit4</id>
             <properties>
                 <maven.surefire.version>3.0.0-M5</maven.surefire.version>
                 <maven.compiler.version>3.8.1</maven.compiler.version>
+                <junit.version>4.12</junit.version>
             </properties>
             <build>
                 <plugins>
@@ -32,10 +37,6 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-compiler-plugin</artifactId>
                         <version>${maven.compiler.version}</version>
-                        <configuration>
-                            <source>1.8</source>
-                            <target>1.8</target>
-                        </configuration>
                         <executions>
                             <execution>
                                 <id>default-testCompile</id>
@@ -70,7 +71,7 @@
                 <dependency>
                     <groupId>junit</groupId>
                     <artifactId>junit</artifactId>
-                    <version>4.12</version>
+                    <version>${junit.version}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -83,8 +84,7 @@
             <properties>
                 <maven.surefire.version>3.0.0-M5</maven.surefire.version>
                 <maven.compiler.version>3.8.1</maven.compiler.version>
-                <junit.jupiter.version>5.7.2</junit.jupiter.version>
-                <junit.vintage.engine.version>4.12.1</junit.vintage.engine.version>
+                <junit-jupiter.version>5.7.2</junit-jupiter.version>
             </properties>
             <build>
                 <pluginManagement>
@@ -101,10 +101,6 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-compiler-plugin</artifactId>
                         <version>${maven.compiler.version}</version>
-                        <configuration>
-                            <source>1.8</source>
-                            <target>1.8</target>
-                        </configuration>
                         <executions>
                             <execution>
                                 <id>default-testCompile</id>
@@ -139,19 +135,82 @@
                 <dependency>
                     <groupId>org.junit.jupiter</groupId>
                     <artifactId>junit-jupiter-api</artifactId>
-                    <version>${junit.jupiter.version}</version>
+                    <version>${junit-jupiter.version}</version>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.junit.jupiter</groupId>
                     <artifactId>junit-jupiter-engine</artifactId>
-                    <version>${junit.jupiter.version}</version>
+                    <version>${junit-jupiter.version}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>JUnit5Vintage</id>
+            <properties>
+                <maven.surefire.version>3.0.0-M5</maven.surefire.version>
+                <maven.compiler.version>3.8.1</maven.compiler.version>
+                <junit-jupiter.version>5.7.2</junit-jupiter.version>
+                <junit.version>4.12</junit.version>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <version>${maven.compiler.version}</version>
+                        <executions>
+                            <execution>
+                                <id>default-testCompile</id>
+                                <phase>test-compile</phase>
+                                <configuration>
+                                    <testIncludes>
+                                        <include>**/TestJUnit4.java</include>
+                                        <include>**/TestJUnit5.java</include>
+                                    </testIncludes>
+                                </configuration>
+                                <goals>
+                                    <goal>testCompile</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${maven.surefire.version}</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.junit.jupiter</groupId>
+                                <artifactId>junit-jupiter-engine</artifactId>
+                                <version>${junit-jupiter.version}</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.junit.vintage</groupId>
+                                <artifactId>junit-vintage-engine</artifactId>
+                                <version>${junit-jupiter.version}</version>
+                            </dependency>
+                        </dependencies>
+                        <configuration>
+                            <excludes>
+                                <exclude/>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <dependencies>
+                <dependency>
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter-api</artifactId>
+                    <version>${junit-jupiter.version}</version>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
-                    <groupId>org.junit.jupiter</groupId>
-                    <artifactId>junit-jupiter-params</artifactId>
-                    <version>${junit.jupiter.version}</version>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                    <version>${junit.version}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
