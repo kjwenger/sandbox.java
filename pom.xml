@@ -44,6 +44,7 @@
                                 <configuration>
                                     <testExcludes>
                                         <exclude>**/TestJUnit5.java</exclude>
+                                        <exclude>**/TestCasts.java</exclude>
                                     </testExcludes>
                                 </configuration>
                                 <goals>
@@ -62,6 +63,7 @@
                             </includes>
                             <excludes>
                                 <exclude>**/TestJUnit5.java</exclude>
+                                <exclude>**/TestCasts.java</exclude>
                             </excludes>
                         </configuration>
                     </plugin>
@@ -121,9 +123,6 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <version>${maven.surefire.version}</version>
                         <configuration>
-                            <includes>
-                                <include>**/TestJUnit5.java</include>
-                            </includes>
                             <excludes>
                                 <exclude>**/TestJUnit4.java</exclude>
                             </excludes>
@@ -156,26 +155,6 @@
             </properties>
             <build>
                 <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <version>${maven.compiler.version}</version>
-                        <executions>
-                            <execution>
-                                <id>default-testCompile</id>
-                                <phase>test-compile</phase>
-                                <configuration>
-                                    <testIncludes>
-                                        <include>**/TestJUnit4.java</include>
-                                        <include>**/TestJUnit5.java</include>
-                                    </testIncludes>
-                                </configuration>
-                                <goals>
-                                    <goal>testCompile</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
